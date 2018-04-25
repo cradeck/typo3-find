@@ -346,6 +346,33 @@ class SearchController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 			$this->addStandardAssignments();
 		}
 	}
+	
+	public function termAction(){
+	    $arguments = $this->requestArguments;
+	    // make sure the required parameters are provided
+	    if (array_key_exists('field', $arguments) && !empty($arguments['field'])) {
+	        // get a terms query instance
+	        $query = $this->solr->createTerms();
+	        // set the fields for which term infos are requested
+	        $query->setFields( $arguments['field'] );
+	        
+	        // set limit as specified in the request; defaults to -1 (no limit)
+	        $limit = -1;
+	        if (array_key_exists('limit', $arguments) && !empty($arguments['limit']))
+	            $limit = $arguments['limit'];
+	        $query->setLimit($limit);
+	        
+	        // append info about lower bound if set in request
+	        if (array_key_exists('lowerBound', $arguments) && !empty($arguments['lowerBound']))
+	            $query->setLowerbound($arguments['lowerBound']);
+	        
+	        // execute the query
+	        $resultset = $this->solr->terms($query);
+	        
+	        return $resultset->getResponse()->getBody();
+	    }
+	    return "";
+	}
 
 
 	/**
