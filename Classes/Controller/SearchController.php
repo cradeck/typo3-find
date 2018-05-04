@@ -622,6 +622,8 @@ class SearchController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 		$this->addHighlighting($query, $arguments);
 		$this->addFacetFilters($query, $arguments);
 		$this->addFacetQueries($query);
+		
+		$this->addGrouping($query, $arguments);
 
 		return $query;
 	}
@@ -965,7 +967,69 @@ class SearchController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 		$this->addSortOrdersToTemplate($arguments);
 	}
 
+	/**
+	 * Sets up $query’s grouping parameters from URL arguments or the TypoScript default.
+	 *
+	 * @param \Solarium\QueryType\Select\Query\Query $query
+	 * @param array $arguments request arguments
+	 */
+	private function addGrouping ($query, $arguments) {
+	    $limit = -1;
+	    $field = NULL;
+	    
+	    if (!empty($arguments["group"]) && $arguments["group"] == "1"){
+            if (!empty($this->settings['grouping'])) {
+                $groupSetting = $this->settings['grouping'];
+                
+                if ($arguments["groupfield"]){
+                    $limit = $arguments["groupfield"];
+                } else{
+                    if (!empty($groupSetting["field"])){
+                        $field = $groupSetting["field"];
+                    }
+                }
+                
+                if ($arguments["grouplimit"]){
+                    $limit = $arguments["grouplimit"];
+                } else{
+                    if (!empty($groupSetting["limit"])){
+                        $limit = $groupSetting["limit"];
+                    }
+                }
+                
+                if (!empty($field)) {
+        	        $grouping = $query->getComponent($query::COMPONENT_GROUPING, true);
+        	        $grouping->setLimit($limit);
+        	        $grouping->addField($field);
+        	        
+        	        $this->addGroupLimitOptionsToTemplate($arguments);
+                }
+    	    }
+	    }
+	}
 
+	private function addGroupLimitOptionsToTemplate ($arguments) {
+	    $grouplimitOptions = array('menu' => array());
+	    
+	    if (is_array($this->settings['grouping']['menu'])) {
+	        ksort($this->settings['grouping']['menu']);
+	        foreach ($this->settings['grouping']['menu'] as $limit) {
+	            $grouplimitOptions['menu'][$limit] = $limit;
+	        }
+	        
+	        $grouplimitOptions['default'] = $this->settings['grouping']['limit'];
+	        
+	        if ($arguments['grouplimit'] && array_key_exists($arguments['grouplimit'], $grouplimitOptions['menu'])) {
+	            $grouplimitOptions['selected'] = $arguments['grouplimit'];
+	        }
+	        else {
+	            $grouplimitOptions['selected'] = $grouplimitOptions['default'];
+	        }
+	    }
+	    
+	    $this->configuration['grouplimitOptions'] = $grouplimitOptions;
+	}
+	
 
 	/**
 	 * Provides sorting information in the template variable »sortOptions«.
