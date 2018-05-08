@@ -292,6 +292,10 @@ class SearchController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 			$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRender', array(&$assignments));
 			$this->timing['DETAIL_AFTER_BeforeRender_SLOT'] = microtime(true) - $this->timing['START'];
 
+			if ($assignments["document"]){
+			    $this->getMoreLikeThis($id);
+			}
+			
 			$this->view->assignMultiple($assignments);
 			$this->addStandardAssignments();
 
@@ -1028,6 +1032,20 @@ class SearchController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 	    }
 	    
 	    $this->configuration['grouplimitOptions'] = $grouplimitOptions;
+	}
+	
+	private function getMoreLikeThis($docID) {
+	    $mlt = $this->solr->createMoreLikeThis();
+	    
+	    $config = $this->settings['morelikethis'];
+	    if (!empty($config)){
+    	    $mlt->setRows($config["rows"]);
+    	    $mlt->setMltFields($config["fields"]);
+	    }
+        $mlt->setQuery("id:".$docID);
+	    
+	    $result = $this->solr->moreLikeThis($mlt);
+	    $this->view->assign("mlt", $result);
 	}
 	
 
