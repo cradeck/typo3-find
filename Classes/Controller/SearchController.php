@@ -200,7 +200,7 @@ class SearchController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 		if (array_key_exists('id', $arguments) && !empty($arguments['id'])) {
 			$id = $arguments['id'];
 			$assignments = array();
-			if ($this->settings['paging']['detailPagePaging'] && array_key_exists('underlyingQuery', $arguments)) {
+			if ($this->settings['paging']['detailPagePaging'] && array_key_exists('underlyingQuery', $arguments) && !$arguments["underlyingQuery"]["group"]) {
 				// If underlying query has been sent, fetch more data to enable paging arrows.
 				$underlyingQueryInfo = $arguments['underlyingQuery'];
 
@@ -1449,6 +1449,9 @@ class SearchController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 			}
 			if ($arguments['sort']) {
 				$underlyingQuery['sort'] = $arguments['sort'];
+			}
+			if ($arguments['group']) {
+			    $underlyingQuery['group'] = $arguments['group'];
 			}
 			$scriptTag->setContent('var underlyingQuery = ' . json_encode($underlyingQuery) . ';');
 			$this->response->addAdditionalHeaderData($scriptTag->render());
