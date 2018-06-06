@@ -394,6 +394,8 @@ class SearchController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 		$this->configuration['prefixID'] = 'tx_find_find';
 
 		$this->configuration['pageTitle'] = $GLOBALS['TSFE']->page['title'];
+		
+		$this->configuration['language'] = $GLOBALS['TSFE']->config['config']['language'];
 
 		// ksort($this->configuration);
 		$this->view->assign('config', $this->configuration);
