@@ -58,44 +58,30 @@ class ResponseParser extends ResponseParserAbstract implements ResponseParserInt
     {
         $data = $result->getData();
         $query = $result->getQuery();
+        $dict= $query->getOption("dictionary");
 
         $suggestions = array();
         $allSuggestions = array();
-        $collation = null;
 
-        if (isset($data['spellcheck']['suggestions']) && is_array($data['spellcheck']['suggestions'])) {
-            $suggestResults = $data['spellcheck']['suggestions'];
+        if (isset($data['suggest']) && isset($data['suggest'][$dict])) {
+            $res = $data['suggest'][$dict][$query->getOption("query")];
+            $suggestResults = $res["suggestions"];
+            $numFound = $res["numFound"];
+            
             $termClass = $query->getOption('termclass');
 
-            if ($query->getResponseWriter() == $query::WT_JSON) {
-                $suggestResults = $this->convertToKeyValueArray($suggestResults);
-            }
-
-            foreach ($suggestResults as $term => $termData) {
-                if ($term == 'collation') {
-                    $collation = $termData;
-                } else {
-                    if (!array_key_exists(0, $termData)) {
-                        $termData = array($termData);
-                    }
-
-                    foreach ($termData as $currentTermData) {
-                        $allSuggestions[] = $this->createTerm($termClass, $currentTermData);
-
-                        if (!array_key_exists($term, $suggestions)) {
-                            $suggestions[$term] = $this->createTerm($termClass, $currentTermData);
-                        }
-                    }
-                }
+            foreach ($suggestResults as $termData) {
+                $term = $termData["term"];
+                
+                $allSuggestions[] = new $termClass($numFound, null, null, $term);
             }
         }
 
         return $this->addHeaderInfo(
             $data,
             array(
-                'results' => $suggestions,
-                'all' => $allSuggestions,
-                'collation' => $collation,
+                'results' => $allSuggestions,//$suggestions,
+                'all' => $allSuggestions
             )
         );
     }

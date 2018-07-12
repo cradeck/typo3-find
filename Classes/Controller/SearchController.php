@@ -178,7 +178,8 @@ class SearchController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 			$this->addFacetFilters($query, $this->requestArguments);
 			$solrResults = $this->solr->suggester($query)->getResults();
 			foreach ($solrResults as $suggestions)  {
-				$results = array_merge($results, $suggestions->getSuggestions());
+				//$results = array_merge($results, $suggestions->getSuggestions());
+				$results[]= $suggestions->getSuggestions();
 			}
 		}
 		else {
