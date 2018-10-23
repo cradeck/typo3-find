@@ -119,7 +119,7 @@ class SearchController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 
 			if(count($this->requestArguments['q']) > 0) {
 
-				$query = $this->createQueryForArguments($this->requestArguments);#
+				$query = $this->createQueryForArguments($this->requestArguments);
 
 				// Run the query.
 				try {
@@ -1291,6 +1291,9 @@ class SearchController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 			$highlight->setSimplePrefix('\ueeee');
 			$highlight->setSimplePostfix('\ueeef');
 
+			if ($this->settings['highlight']['method']){
+                $highlight->setHighlighter($this->settings['highlight']['method']);
+			}
 		}
 
 		$this->configuration['highlight'] =  $highlightConfig;

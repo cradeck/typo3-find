@@ -93,6 +93,8 @@ class Highlighting implements ComponentRequestBuilderInterface
         $request->addParam('hl.bs.type', $component->getBoundaryScannerType());
         $request->addParam('hl.bs.language', $component->getBoundaryScannerLanguage());
         $request->addParam('hl.bs.country', $component->getBoundaryScannerCountry());
+        
+        $request->addParam("hl.method", $component->getHighlighter());
 
         // set per-field highlighting params
         foreach ($component->getFields() as $field) {

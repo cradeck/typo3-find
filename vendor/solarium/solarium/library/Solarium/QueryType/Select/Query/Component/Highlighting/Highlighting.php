@@ -922,4 +922,16 @@ class Highlighting extends Component
     {
         return $this->getOption('boundaryscannercountry');
     }
+    
+    
+    
+    public function setHighlighter($hl)
+    {
+        return $this->setOption('highlighter', $hl);
+    }
+    
+    public function getHighlighter()
+    {
+        return $this->getOption('highlighter');
+    }
 }
