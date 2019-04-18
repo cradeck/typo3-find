@@ -31,8 +31,6 @@ namespace Subugoe\Find\Controller;
 
 
 
-use Solarium\QueryType\Select\Query\FilterQuery;
-
 require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('find') . 'vendor/autoload.php');
 
 /**
@@ -65,9 +63,9 @@ class SearchController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-	 * @inject
+	 * @TYPO3\CMS\Extbase\Annotation\Inject
 	 */
-	protected $signalSlotDispatcher;
+	public $signalSlotDispatcher;
 
 
 	/**
@@ -117,7 +115,7 @@ class SearchController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 			$this->forward('redirect');
 		} else {
 
-			if(count($this->requestArguments['q']) > 0) {
+		    if(!empty($this->requestArguments['q']) && count($this->requestArguments['q']) > 0) {
 
 				$query = $this->createQueryForArguments($this->requestArguments);
 
@@ -590,7 +588,7 @@ class SearchController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 
 		// Shards
 
-		if(count($this->settings['shards'])) {
+	    if(is_array($this->settings['shards']) && count($this->settings['shards'])) {
 			$distributedSearch = $query->getDistributedSearch();
 			foreach($this->settings['shards'] as $name => $shard) {
 				$distributedSearch->addShard($name, $shard);
@@ -1558,7 +1556,7 @@ class SearchController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 		$selectResults = $this->solr->select($query);
 
 		if (count($selectResults) > 0) {
-			$assignments['results'] = $selectResults;
+			//$assignments['results'] = $selectResults;
 
 			$resultSet = $selectResults->getDocuments();
 

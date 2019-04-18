@@ -34,6 +34,7 @@ namespace Subugoe\Find\ViewHelpers\Data;
  */
 class NewArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
+	protected $escapeOutput = false;
 
 	/**
 	 * Register arguments.
