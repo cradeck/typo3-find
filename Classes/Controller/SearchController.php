@@ -288,7 +288,7 @@ class SearchController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 			}
 
 			$this->timing['DETAIL_BEFORE_BeforeRender_SLOT'] = microtime(true) - $this->timing['START'];
-			$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRender', array(&$assignments));
+			$this->signalSlotDispatcher->dispatch(__CLASS__, __FUNCTION__ . 'BeforeRender', array(&$assignments, $this->solr, $this->view));
 			$this->timing['DETAIL_AFTER_BeforeRender_SLOT'] = microtime(true) - $this->timing['START'];
 
 			if ($assignments["document"]){
