@@ -33,9 +33,14 @@ $EM_CONF[$_EXTKEY] = [
     'constraints' => [
         'depends' => [
             'php' => '5.5.0-7.3.99',
-            'typo3' => '6.2.0-8.7.99',
+            'typo3' => '8.7.0-9.9.99',
         ],
         'conflicts' => [],
         'suggests' => [],
-    ]
+    ],
+    'autoload' => [
+        'psr-4' => [
+            'Subugoe\\Find\\' => 'Classes',
+        ],
+    ],
 ];
