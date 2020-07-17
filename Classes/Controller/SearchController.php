@@ -273,7 +273,7 @@ class SearchController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 						$assignments['document'] = $resultSet[0];
 					}
 					else {
-						$localisationKey = 'LLL:' . $this->settings['languageRootPath'] . 'locallang.xml:exception.deatilNoresult';
+						$localisationKey = 'LLL:' . $this->settings['languageRootPath'] . 'locallang.xml:exception.detailNoresult';
 						$message = sprintf(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($localisationKey, $this->request->getControllerExtensionKey()), $id);
 
 						$this->logError($message, \TYPO3\CMS\Core\Messaging\FlashMessage::ERROR, array('arguments' => $arguments));
@@ -1495,7 +1495,7 @@ class SearchController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 	 */
 	private function logError ($message, $level, $extraInfo = NULL, $showFlashMessage = TRUE) {
 		if ($showFlashMessage) {
-			$this->flashMessageContainer->add($message, $level);
+		    $this->addFlashMessage($message,'', $level);
 		}
 
 		/* translates between the equivalent \TYPO3\CMS\Core\Messaging and devLog log levels */
