@@ -33,7 +33,7 @@ namespace Subugoe\Find\ViewHelpers\LinkedData;
  *
  * Usage examples are available in Private/Partials/Test.html.
  */
-class ContainerViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class ContainerViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * Registers own arguments.

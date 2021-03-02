@@ -41,7 +41,7 @@ namespace Subugoe\Find\ViewHelpers\Find;
  * The highlighting tags can be configured using the highlightTagOpen and
  * highlightTagClose arguments.
  */
-class HighlightFieldViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class HighlightFieldViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * Registers own arguments.

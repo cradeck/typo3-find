@@ -34,7 +34,7 @@ namespace Subugoe\Find\ViewHelpers\Find;
 /**
  * Determines whether a facet is selected or not
  */
-class FacetIsActiveViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper{
+class FacetIsActiveViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 	/**

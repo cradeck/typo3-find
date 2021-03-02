@@ -33,7 +33,7 @@ namespace Subugoe\Find\ViewHelpers\Data;
  *
  * Usage examples are available in Private/Partials/Test.html.
  */
-class ArrayFirstViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class ArrayFirstViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 	/**

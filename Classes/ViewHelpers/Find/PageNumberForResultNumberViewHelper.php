@@ -33,7 +33,7 @@ namespace Subugoe\Find\ViewHelpers\Find;
  * appears on with resultsPerPage items per page, i.e. returns
  * resultNumber mod resultsPerPage.
  */
-class PageNumberForResultNumberViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class PageNumberForResultNumberViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 	/**

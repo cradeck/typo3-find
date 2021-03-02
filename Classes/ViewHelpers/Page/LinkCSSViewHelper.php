@@ -32,7 +32,7 @@ namespace Subugoe\Find\ViewHelpers\Page;
  *
  * Usage examples are available in Private/Partials/Test.html.
  */
-class LinkCSSViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class LinkCSSViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 	/**
@@ -50,7 +50,8 @@ class LinkCSSViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
 	 * @return string
 	 */
 	public function render() {
-		$CSSFileName = $GLOBALS['TSFE']->tmpl->getFileName($this->arguments['file']);
+		//$CSSFileName = $GLOBALS['TSFE']->tmpl->getFileName($this->arguments['file']);
+	    $CSSFileName = (new \TYPO3\CMS\Frontend\Resource\FilePathSanitizer())->sanitize($this->arguments['file']);
 		if ($CSSFileName) {
 			//$GLOBALS['TSFE']->getPageRenderer()->addCSSFile($CSSFileName);
 			$pageRenderer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);

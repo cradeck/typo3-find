@@ -32,7 +32,7 @@ namespace Subugoe\Find\ViewHelpers\Page;
  * 
  * Usage examples are available in Private/Partials/Test.html.
  */
-class TitleViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class TitleViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 	/**

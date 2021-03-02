@@ -32,7 +32,7 @@ namespace Subugoe\Find\ViewHelpers\LinkedData;
  * View Helper to create a container for linked data output.
  * Add data by using the linkedDataItem View Helper inside it.
  */
-class ItemViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class ItemViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 	/**;

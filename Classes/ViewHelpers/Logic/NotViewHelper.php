@@ -32,7 +32,7 @@ namespace Subugoe\Find\ViewHelpers\Logic;
  *
  * Usage examples are available in Private/Partials/Test.html.
  */
-class NotViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class NotViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 	/**

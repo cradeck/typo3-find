@@ -32,7 +32,7 @@ namespace Subugoe\Find\ViewHelpers\Format;
  * 
  * Usage examples are available in Private/Partials/Test.html.
  */
-class RegexpViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class RegexpViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 	/**

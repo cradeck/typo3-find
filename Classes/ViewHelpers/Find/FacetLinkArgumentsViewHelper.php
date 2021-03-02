@@ -43,7 +43,7 @@ namespace Subugoe\Find\ViewHelpers\Find;
  * 		- remove: f.link.action’s »argumentsToBeExcludedFromQueryString«, removing a facet selection
  *					leaving out the facetTerm parameter removes all selected items for the facet facetID
  */
-class FacetLinkArgumentsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class FacetLinkArgumentsViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * Register arguments.

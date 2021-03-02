@@ -25,16 +25,16 @@ namespace Subugoe\Find\ViewHelpers\Page;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
 
 /**
  * View Helper to dynamically add script resources to the output.
  *
  * Usage examples are available in Private/Partials/Test.html.
  */
-class ScriptViewHelper extends AbstractViewHelper implements CompilableInterface
+class ScriptViewHelper extends AbstractViewHelper implements ViewHelperInterface
 {
     /**
      * @return PageRenderer
@@ -43,7 +43,7 @@ class ScriptViewHelper extends AbstractViewHelper implements CompilableInterface
     {
         return GeneralUtility::makeInstance(PageRenderer::class);
     }
-
+    
     /**
      * @return TemplateService
      */
@@ -51,7 +51,7 @@ class ScriptViewHelper extends AbstractViewHelper implements CompilableInterface
     {
         return $GLOBALS['TSFE']->tmpl;
     }
-
+    
     /**
      * @return void
      */
@@ -60,7 +60,7 @@ class ScriptViewHelper extends AbstractViewHelper implements CompilableInterface
         $this->registerArgument('file', 'string', 'File to append as script');
         $this->registerArgument('name', 'string', 'Name to use', true);
     }
-
+    
     /**
      * @return string
      */
@@ -73,9 +73,9 @@ class ScriptViewHelper extends AbstractViewHelper implements CompilableInterface
             ],
             $this->buildRenderChildrenClosure(),
             $this->renderingContext
-        );
+            );
     }
-
+    
     /**
      * @param array                     $arguments
      * @param \Closure                  $renderChildrenClosure
@@ -87,20 +87,22 @@ class ScriptViewHelper extends AbstractViewHelper implements CompilableInterface
         array $arguments,
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
-    ) {
-        $scriptPath = static::getTypoScriptTemplateService()->getFileName($arguments['file']);
-        $name = $arguments['name'];
-
-        $pageRenderer = self::getPageRenderer();
-        if ($scriptPath) {
-            $pageRenderer->addJsFooterLibrary($name, $scriptPath);
-
+        ) {
+			if (empty($arguments['file'])) return '';
+            //$scriptPath = static::getTypoScriptTemplateService()->getFileName($arguments['file']);
+            $scriptPath = (new \TYPO3\CMS\Frontend\Resource\FilePathSanitizer())->sanitize($arguments['file']);
+            $name = $arguments['name'];
+            
+            $pageRenderer = self::getPageRenderer();
+            if ($scriptPath) {
+                $pageRenderer->addJsFooterLibrary($name, $scriptPath);
+                
+                return '';
+            }
+            
+            $content = $renderChildrenClosure();
+            $pageRenderer->addJsFooterInlineCode($name, $content);
+            
             return '';
-        }
-
-        $content = $renderChildrenClosure();
-        $pageRenderer->addJsFooterInlineCode($name, $content);
-
-        return '';
     }
 }

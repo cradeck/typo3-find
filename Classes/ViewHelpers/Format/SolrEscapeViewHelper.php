@@ -32,7 +32,7 @@ namespace Subugoe\Find\ViewHelpers\Format;
  *
  * Usage examples are available in Private/Partials/Test.html.
  */
-class SolrEscapeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class SolrEscapeViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 
 	/**

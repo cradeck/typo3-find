@@ -4,14 +4,14 @@ if (!defined('TYPO3_MODE')) {
 }
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'Subugoe.' . $_EXTKEY, // The extension name (in UpperCamelCase) with vendor prefix
+	'Subugoe.' . 'find', // The extension name (in UpperCamelCase) with vendor prefix
 	'Find', // A unique name of the plugin in UpperCamelCase
-	[ // An array holding the enabled controller-action-combinations
+	array( // An array holding the enabled controller-action-combinations
 		'Search' => 'index, detail, suggest, citation, term', // The first controller and its first action will be the default
-	],
-	[ // An array holding the non-cachable controller-action-combinations
+	),
+	array( // An array holding the non-cachable controller-action-combinations
 		'Search' => 'index, detail, suggest, citation, term', // The first controller and its first action will be the default
-	]
+	)
 );
 
 // RealURL autoconfiguration
